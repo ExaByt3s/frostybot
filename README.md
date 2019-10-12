@@ -12,8 +12,8 @@ FrostyBot is a minimal endpoint that is designed to be used with webhooks in tra
 
 ## Authors
 
-*CryptoMF from the Krown's Crypto Cave discord group (the creator of this project)
-*Barnz from the Krown's Crypto Cave discord group (release 0.6 to 0.8)
+* CryptoMF from the Krown's Crypto Cave discord group (the creator of this project)
+* Barnz from the Krown's Crypto Cave discord group (release 0.6 to 0.8)
             
 ## Dedication
 
