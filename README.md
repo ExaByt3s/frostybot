@@ -1,41 +1,32 @@
 # frostybot
 
-Authors:    CryptoMF from the Krown's Crypto Cave discord group (the creator of this project) and Barnz from the Krown's Crypto Cave discord group (release 0.6 to 0.8)
-            
-Dedication: Dedicated to @christiaan's mom, what a classy lady!
+## Sumamry
 
-Disclaimer: Use this bot at your own risk, the authors accept no responsibility if you get rekt.
-            This is a 0.x release which means ists beta software. So it may and probably will have some bugs.
+FrostyBot is a minimal endpoint that is designed to be used with webhooks in tradingview alerts. It receives simple commands and translates them to specific exchange orders and sends them to the exchange. There is little logic as the idea is to keep the trading logic in tradingview. The bot has some minimal logic:
+
+* going short after a long first closes the long position completely and then executes the short (and 
+ vice versa) So if yo have a long position of 100 and you enter a short of 10 after that the result isva net position of 10 contracts short. (and not 100-10=90 contracts long). This is done to simplify the bot logic to be written in pinescript.
+* max positions can be specified per bot. Which means if your logic fails on tradingview and you keep placing orders the bot will stop accepting orders (but keeps the max specified position)
+* anything that can trigger an alert in tradingview can use this bot for trade execution. so also the crossing of a trendline, etc.
+* closing all positions means you are spot long your account value! in the future we might add logic going automatically to 'cash' on perpetual contracts. This is already easy on Deribit: just enter a 'short 100%'. BE AWARE on Bitmex though, as it defaults to 100x leverage if you use cross leverage. So about 99% of your account value is still spot long if you do a 100% short there on cross leverage. You basically took 2 opposite sides and paying transaction and funding costs in that case. So on mexico the slider must be set to 1x to behave the same as Deribit. Make sure you really understand the leverage mechanism on mexico if you prefer Bitmex over Deribit for some reason (liquidity being the main one). 
+
+## Authors
+
+*CryptoMF from the Krown's Crypto Cave discord group (the creator of this project)
+*Barnz from the Krown's Crypto Cave discord group (release 0.6 to 0.8)
             
-Scope:      As of now deribit and mexico are supported (plus testnets) with BTC and ETH pairs (perpetuals)
-            This is mostly useful for strategies that don't trade too often. For every trade multiple REST api calls are done
-            to the exchange, which is not super fast, but it keeps the bot simple.  So if you want to do higher frequency 
-            trades its probably better to use websocket API's and don't use FrostyBot.
+## Dedication
+
+Dedicated to @christiaan's mom, what a classy lady!
+
+## Disclaimer
+Use this bot at your own risk, the authors accept no responsibility if you get rekt. This is a 0.x release which means ists beta software. So it may and probably will have some bugs.
             
-Summary:    FrostyBot is a minimal endpoint that is designed to be used with webhooks in tradingview alerts.
-            It receives simple commands and translates them to specific exchange orders and sends them to the 
-            exchange. There is little logic as the idea is to keep the trading logic in tradingview. The bot has 
-            some minimal logic:
-            - going short after a long first closes the long position completely and then executes the short (and 
-              vice versa) So if yo have a long position of 100 and you enter a short of 10 after that the result is
-              a netto position of 10 contracts short. (and not 100-10=90 contracts long). This is done to simplify the
-              bot logic to be written in pinescript.
-            - max positions can be specified per bot. Which means if your logic fails on tradingview and you keep 
-              placing orders the bot will stop accepting orders (but keeps the max specified position)
-            - anything that can trigger an alert in tradingview can use this bot for trade execution. so also the 
-              crossing of a trendline, etc.
-            - closing all positions means you are spot long your account value! in the future we might add logic going 
-              automatically to 'cash' on perpetual contracts. This is already easy on Deribit: just enter a 'short 100%' 
-              BE AWARE on mexico though, as it defaults to 100x leverage if you use cross leverage. So about 99% 
-              of your account value is still spot long if you do a 100% short there on cross leverage. You basically took 
-              2 opposite sides and paying transaction and funding costs in that case. So on mexico the slider must be set to 1x
-              to behave the same as Deribit. Make sure you really understand the leverage mechanism on mexico if you prefer 
-              mexico over Deribit for some reason (liquidity being the main one). The leverage system on mexico is 
-              really designed to fuck you.
-              
-Usage:      Its recommended to use subaccounts for the individual bots to limit risk. 
-            First follow the instructions in the INSTALLATION file. Then configure your Trading View alerts to call 
-            the webhook using the appropriate commands:
+## Scope      
+As of now Deribit and Bitmex are supported (plus testnets) with BTC and ETH pairs (perpetuals). This is mostly useful for strategies that don't trade too often. For every trade multiple REST api calls are done to the exchange, which is not super fast, but it keeps the bot simple.  So if you want to do higher frequency trades its probably better to use websocket API's and don't use FrostyBot.
+            
+## Usage
+Its recommended to use subaccounts for the individual bots to limit risk. First follow the instructions in the INSTALLATION file. Then configure your Trading View alerts to call the webhook using the appropriate commands:
 
             Webhook Example URLs. Note the use of pct for percentages here and that we use deribit and trade btc:
             
