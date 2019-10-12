@@ -1,4 +1,4 @@
-# frostybot
+# FrostyBot
 
 ## Summary
 
@@ -28,7 +28,7 @@ As of now Deribit and Bitmex are supported (plus testnets) with BTC and ETH pair
 ## Usage
 Its recommended to use subaccounts for the individual bots to limit risk. First follow the instructions in the INSTALLATION file. Then configure your Trading View alerts to call the webhook using the appropriate commands:
 
-            Webhook Example URLs. Note the use of pct for percentages here and that we use deribit and trade btc:
+            Webhook Example URLs (NOTE the use of pct for percentages here and that we use deribit and trade btc)
             
                 https://my.bot.com/bot/deribit/btc_usd/?command=LONG (initiate long ontry  the DEFAULT_ORDER_SIZE, see config)
                 https://my.bot.com/bot/deribit/btc_usd/?command=LONG&size=1000&price=7600 (Limit buy for USD1000 at $7600)
@@ -62,9 +62,7 @@ Its recommended to use subaccounts for the individual bots to limit risk. First 
                 php index.php log             (Show log file contents for bot instance, last 10 lines is the default)
                 php index.php log 20          (Show log file contents for bot instance, last 20 lines)
 
-           examples in messagebox / pinescript alerts
-           
-                // NOTE anything ing the message box is interpreted as a command, so don't use the message bog for a general description!
+           Examples in messagebox / pinescript alerts (NOTE anything ing the message box is interpreted as a command)
              
                 long            (Will use the DEFAULT_ORDER_SIZE specified below with a market order)
                 long 10000      (Will enter long position of USD 10000 with a market order)
@@ -74,8 +72,7 @@ Its recommended to use subaccounts for the individual bots to limit risk. First 
                 close 50%       (Take profit on 50% of the current position)
                 short 20000     (Will enter short position of USD 20000, for other options see long)
                
-           example pinescript alert structure
-                // note you have to set the url in the webhook field
+           Example PineScript alert structure (NOTE you have to set the url in the webhook field)
            
                 strategy("testing alerts with frostybot")
                 
