@@ -20,7 +20,7 @@ FrostyBot is a minimal endpoint that is designed to be used with webhooks in tra
 Dedicated to @christiaan's mom, what a classy lady!
 
 ## Disclaimer
-Use this bot at your own risk, the authors accept no responsibility if you get rekt. This is a 0.x release which means ists beta software. So it may and probably will have some bugs.
+Use this bot at your own risk, the authors accept no responsibility if you get rekt. This is a 0.x release which means it's beta software. So it may and probably will have some bugs.
             
 ## Scope      
 As of now Deribit and Bitmex are supported (plus testnets) with BTC and ETH pairs (perpetuals). This is mostly useful for strategies that don't trade too often. For every trade multiple REST api calls are done to the exchange, which is not super fast, but it keeps the bot simple.  So if you want to do higher frequency trades its probably better to use websocket API's and don't use FrostyBot.
