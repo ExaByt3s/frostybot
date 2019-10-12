@@ -1,6 +1,6 @@
 # frostybot
 
-## Sumamry
+## Summary
 
 FrostyBot is a minimal endpoint that is designed to be used with webhooks in tradingview alerts. It receives simple commands and translates them to specific exchange orders and sends them to the exchange. There is little logic as the idea is to keep the trading logic in tradingview. The bot has some minimal logic:
 
