@@ -1,0 +1,85 @@
+First a small note on the bot configuration structure:
+==============================================================
+
+to make the system scalable we split up the configuration in 3 levels:
+- global.config.php     : settings that are for the system as a whole independent of exchange of tradable currency pairs
+- exchange.config.php   : settings per exchange that are the same for each bot instance running on the exchange
+- config.php            : specific currency pair settings.
+
+
+Installation steps:
+===============================================================
+
+1. extract the frostybot .zip file in a directory on your webserver that is public
+    For apache on unbuntu it's
+
+    /var/www/html
+
+2. say you extracted it there. to keep the urls short you may want to rename teh folder from frostybot_x.x to bot
+    you then have a structure like:
+
+    /var/www/html/bot
+
+3. now you have to configure the exchanges you want to use. Open the folder of the exchange you want to use, say deribit
+    - edit the exchange.test.config.php. Enter your key/secret for your test account
+    - edit the exchange.config.php. Enter your key/secret for your real account
+    - repeat this fr each exchange you want to use (for now just deribit and bitmex are supported)
+
+4. next open in the same folder the sub-folder that represents the currency pair ou want to trade. Say btc_usd
+    - edit the config.php to configure the bot instance. Each exchange/pair has its own settings and runs as separate 'bot'
+      It has its own log file.
+    - repeat this for each currency pair you want to trade.
+    - recommended that you also configure the test. If you can trade there you can copy those bot config settings to a real setup.
+    - for now only the preconfigured pairs are supported. (btc_usd, eth_usd, test(uses btc_usd))
+
+5. edit config/global.config.php
+    - set the path for the logfiles. If you dont want them publicly available make sure they are placed outside the public
+      www dir. As example for unbuntu:
+
+      - /var/www/html --> bad
+      - /var/www      --> good
+
+    - ***optional***  add your ip address to the WHITELIST_ADDITIONS. It can be found if you go to the site: www.watismijnip.nl
+      NOTE: if you are on a local network with others you are sharing an external IP. Others on the network have then access. So for at home
+      this is safe, but at work it's not.
+
+6. test the bot
+    - go to the folder of the bot you want to use. say testnet on mexico and btc_usd pair
+    - check your balance:
+
+        /var/www/html/bot/bitmex/test$ php index.php balance
+
+    - now do a trade:
+
+        /var/www/html/bot/bitmex/test$ php index.php long 1
+
+    If both commands succeeded you're good to go.
+
+7. *** for the nerds ***Test the remote installation locally from the command line.
+    if you did step 5. you can test from the command line from your local machine the running instance on the webserver like:
+
+        local machine$ curl -H 'Content-Type: text/plain; charset=utf-8' -d 'balance' -X POST https://<your domain>/bot/bitmex/test/
+
+    you should see the balance as json in the output.
+    NOTE: this only works if you added your ip to the WHITELIST_ADDITIONS.
+
+8. Test the remote installation locally from the browser.
+    enter:
+
+        https://<your domain>/bot/bitmex/test/?command=balance
+
+    you should see the balance as json in the browser.
+    NOTE: this only works if you added your ip to the WHITELIST_ADDITIONS.
+
+9. now create an alert in tradingview and use  https://<your domain>/bot/bitmex/test/ as the webhook url and in the message field type:
+
+       long 1
+
+   once the alert triggers you should have bought 1 contract on the testnet.
+   for a full list of commands see the README
+
+10. once you got it working you can setup with a real account and trade for real. The webhook for btc on bitmex is then for example:
+
+    https://<your domain>/bot/bitmex/btc_usd/
+
+11. Enjoy and don't get rekt!
