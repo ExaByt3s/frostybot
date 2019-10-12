@@ -1,4 +1,8 @@
 # frostybot
+
+Authors:    CryptoMF from the Krown's Crypto Cave discord group (the creator of this project)
+            Barnz from the Krown's Crypto Cave discord group (release 0.6 to 0.8)
+            
 Dedication: Dedicated to @christiaan's mom, what a classy lady!
 
 Disclaimer: Use this bot at your own risk, the authors accept no responsibility if you get rekt.
